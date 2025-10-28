@@ -50,13 +50,24 @@ public class House extends Asset {
 
     @Override
     public double getValue() {
-        return switch (condition) {
-            case 1 -> (180.0 * squareFoot) + (0.25 * lotSize);
-            case 2 -> (130.0 * squareFoot) + (0.25 * lotSize);
-            case 3 -> (90.0 * squareFoot) + (0.25 * lotSize);
-            case 4 -> (80.0 * squareFoot) + (0.25 * lotSize);
-            default -> getOriginalCost();
-        };
+        double value = 0;
+
+        switch (condition) {
+            case 1:
+                value = 180.0 * squareFoot;
+                break;
+            case 2:
+                value = 130.0 * squareFoot;
+                break;
+            case 3:
+                value = 90.0 * squareFoot;
+                break;
+            case 4:
+                value = 80.0 * squareFoot;
+                break;
+        }
+        value += 0.25 * lotSize;
+        return value;
     }
 
 }

@@ -42,25 +42,31 @@ public class Vehicle extends Asset {
 
     @Override
     public double getValue() {
-        LocalDate currentYear = LocalDate.now();
-        int vehicleAge = currentYear.getYear() - year;
+        int currentYear = LocalDate.now().getYear();
+        int vehicleAge = currentYear - year;
 
-        double finalValue;
+        double finalValue = 0;
         if (vehicleAge <= 3) {
-            finalValue = ((getOriginalCost()) - (0.03 * getOriginalCost()));
+            for (int i = 0; i < vehicleAge; i++) {
+                finalValue = 0.97 * getOriginalCost();
+            }
         } else if (vehicleAge <= 6) {
-            finalValue = ((getOriginalCost()) - (0.06 * getOriginalCost()));
+            for (int i = 0; i < vehicleAge; i++) {
+                finalValue = 0.94 * getOriginalCost();
+            }
         } else if (vehicleAge <= 10) {
-            finalValue = ((getOriginalCost()) - (0.08 * getOriginalCost()));
+            for (int i = 0; i < vehicleAge; i++) {
+                finalValue = 0.92 * getOriginalCost();
+            }
         } else {
-            finalValue = 1000.0;
+            finalValue = getOriginalCost() - 1000.0;
         }
 
-        if (makeModel.equalsIgnoreCase("Honda") ||
-                makeModel.equalsIgnoreCase("Toyota")) {
-
+        if (!(makeModel.contains("Honda") || makeModel.contains("Toyota"))
+                && odometer > 100000) {
+            finalValue *= 0.75;
         }
 
+        return finalValue;
     }
-
 }
